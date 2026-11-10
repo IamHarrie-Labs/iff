@@ -39,8 +39,8 @@ No live bank or inbox connection, no PDF or OCR yet, and Iff can't move money or
 
 Let the trusted person ask Iff questions answered only from their plan. PDF statements. A "first two weeks" view of what's due soon and still has no instructions.
 
-## Still to fill in
+## Links
 
-- Public Clips recording URL
-- Public project URL and repository URL, if required
-- Team and eligibility details
+- Live app: https://iff-beta.vercel.app
+- Demo video: https://clips.agent-native.com/share/lptrvRSWuuZw
+- Repository: https://github.com/IamHarrie-Labs/iff

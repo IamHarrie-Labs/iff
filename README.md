@@ -4,6 +4,9 @@ Iff turns your statements and emails into a plan someone you trust can follow if
 
 Built for the [Builder.io Agent-Native Hackathon](https://www.builder.io/hackathon) on the [Agent-Native](https://www.agent-native.com/docs/) framework.
 
+- **Live app:** https://iff-beta.vercel.app
+- **Demo video:** https://clips.agent-native.com/share/lptrvRSWuuZw
+
 ![Iff landing page](docs/images/landing.png)
 
 ## The problem
