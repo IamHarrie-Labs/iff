@@ -46,3 +46,6 @@ data/*.lock
 .iff-data/
 
 *.bak
+
+.vercel
+.env*
