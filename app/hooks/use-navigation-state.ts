@@ -18,13 +18,27 @@ export interface NavigationState {
   path?: string;
   publicPath?: string;
   threadId?: string;
+  section?: string;
+  discoveryId?: string;
+  recipient?: string;
 }
 
 export function useNavigationState() {
   useAgentRouteState<NavigationState>({
     browserTabId: TAB_ID,
     requestSource: TAB_ID,
-    getNavigationState: ({ pathname }) => navigationStateForPath(pathname),
+    getNavigationState: ({ pathname, searchParams }) => ({
+      ...navigationStateForPath(pathname),
+      ...(pathname === HOME_PATH
+        ? {
+            section: searchParams.get("view") ?? "Discoveries",
+            ...(searchParams.get("item") ? { discoveryId: searchParams.get("item")! } : {}),
+            ...(searchParams.get("view") === "Handover"
+              ? { recipient: searchParams.get("for") ?? "Alex" }
+              : {}),
+          }
+        : {}),
+    }),
     getCommandPath: commandPathForNavigation,
   });
 }
@@ -82,6 +96,8 @@ function viewForPath(pathname: string): string {
     return "agent";
   }
   if (pathname.startsWith("/settings")) return "settings";
+  if (["/welcome", "/privacy", "/terms", "/trust"].includes(pathname)) return pathname.slice(1);
+  if (pathname.startsWith("/p/")) return "shared-plan";
   if (pathname.startsWith("/team")) return "settings";
   return "chat";
 }
@@ -117,3 +133,4 @@ export function pathForCommand(command: any): string {
     typeof command?.threadId === "string" ? command.threadId.trim() : "";
   return threadId ? chatThreadPath(threadId) : path;
 }
+

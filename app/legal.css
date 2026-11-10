@@ -1,0 +1,342 @@
+/* Privacy, terms, data handling and shared plan pages. Uses brand.css tokens. */
+.lg {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+}
+.lg a {
+  color: inherit;
+}
+.lg-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 28px 24px;
+}
+.lg-logo svg {
+  height: 26px;
+  width: auto;
+}
+.lg-back {
+  color: var(--text-2) !important;
+  font-size: var(--t-14);
+  text-decoration: none;
+}
+.lg-back:hover {
+  color: var(--text) !important;
+}
+.lg-main {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 48px 24px 96px;
+}
+.lg-label {
+  color: var(--signal);
+  font-size: var(--t-14);
+  font-weight: 500;
+}
+.lg h1 {
+  margin-top: 14px;
+  font-size: clamp(40px, 6vw, 64px);
+  font-weight: 640;
+  line-height: 1;
+  letter-spacing: var(--track-display);
+  text-wrap: balance;
+}
+.lg-intro {
+  max-width: 620px;
+  margin-top: 24px;
+  color: var(--text-2);
+  font-size: var(--t-20);
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+.lg-updated {
+  margin-top: 20px;
+  color: var(--text-3);
+  font-size: var(--t-14);
+}
+.lg-body {
+  margin-top: 56px;
+  border-top: 1px solid var(--line);
+}
+.lg-body section {
+  display: grid;
+  grid-template-columns: 200px minmax(0, 1fr);
+  gap: 32px;
+  padding: 36px 0;
+  border-bottom: 1px solid var(--line);
+}
+.lg-body h2 {
+  font-size: var(--t-16);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.lg-body p,
+.lg-body li {
+  color: #c9c8c3;
+  font-size: var(--t-16);
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+.lg-body p + p,
+.lg-body p + ul,
+.lg-body ul + p {
+  margin-top: 14px;
+}
+.lg-body ul {
+  display: grid;
+  gap: 10px;
+  padding-left: 0;
+  list-style: none;
+}
+.lg-body li {
+  position: relative;
+  padding-left: 22px;
+}
+.lg-body li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 0.72em;
+  width: 8px;
+  height: 1.5px;
+  background: var(--signal);
+}
+.lg-body li.no::before {
+  background: var(--text-3);
+}
+.lg-body b {
+  color: var(--text);
+  font-weight: 600;
+}
+.lg-body a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--text-3);
+}
+.lg-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 32px;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 32px 24px 48px;
+  border-top: 1px solid var(--line);
+  color: var(--text-3);
+  font-size: var(--t-14);
+}
+.lg-foot nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.lg-foot a {
+  color: var(--text-2) !important;
+  text-decoration: none;
+}
+.lg-foot a:hover {
+  color: var(--text) !important;
+}
+
+/* Shared plan */
+.sp-card {
+  margin-top: 48px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--bg-2);
+  overflow: hidden;
+}
+.sp-item {
+  padding: 24px 28px;
+  border-bottom: 1px solid var(--line);
+}
+.sp-item:last-child {
+  border-bottom: 0;
+}
+.sp-item-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 16px;
+}
+.sp-item h2 {
+  font-size: var(--t-20);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.sp-tag {
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--signal);
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 600;
+}
+.sp-cat {
+  margin-top: 4px;
+  color: var(--text-3);
+  font-size: var(--t-14);
+}
+.sp-do {
+  margin-top: 14px;
+  color: #dedcd6;
+  font-size: var(--t-16);
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+.sp-open {
+  margin-top: 12px;
+  color: var(--text-2);
+  font-size: var(--t-14);
+}
+.sp-meta {
+  margin-top: 12px;
+  color: var(--text-3);
+  font-size: 13px;
+}
+.sp-empty,
+.sp-gone {
+  padding: 40px 28px;
+  color: var(--text-2);
+  font-size: var(--t-16);
+  line-height: 1.6;
+}
+.sp-note {
+  margin-top: 28px;
+  color: var(--text-3);
+  font-size: var(--t-14);
+  line-height: 1.6;
+}
+
+@media (max-width: 640px) {
+  .lg-main {
+    padding: 24px 16px 72px;
+  }
+  .lg-nav,
+  .lg-foot {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .lg-intro {
+    font-size: 18px;
+  }
+  .lg-body {
+    margin-top: 40px;
+  }
+  .lg-body section {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 28px 0;
+  }
+  .sp-item {
+    padding: 20px;
+  }
+}
+
+/* Passkey sign-in */
+.st {
+  max-width: 520px;
+}
+.st-card {
+  display: grid;
+  gap: 16px;
+  margin-top: 40px;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--bg-2);
+}
+.st-btn {
+  height: 52px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--signal);
+  color: var(--ink);
+  font: inherit;
+  font-size: var(--t-16);
+  font-weight: 560;
+  cursor: pointer;
+  transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+}
+.st-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 34px -14px rgba(215, 249, 74, 0.55);
+}
+.st-btn:disabled {
+  cursor: progress;
+  opacity: 0.7;
+}
+.st-btn-line {
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--text);
+}
+.st-btn-line:hover:not(:disabled) {
+  border-color: var(--text-2);
+  box-shadow: none;
+}
+.st-or {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-3);
+  font-size: 13px;
+}
+.st-or::before,
+.st-or::after {
+  content: "";
+  flex: 1;
+  border-top: 1px solid var(--line);
+}
+.st-field {
+  display: grid;
+  gap: 8px;
+  color: var(--text-2);
+  font-size: var(--t-14);
+}
+.st-field small {
+  color: var(--text-3);
+}
+.st-field input {
+  height: 48px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+  font-size: var(--t-16);
+}
+.st-field input:focus {
+  border-color: var(--text-2);
+  outline: none;
+}
+.st-error {
+  color: #ff8a7a;
+  font-size: var(--t-14);
+  line-height: 1.5;
+}
+.st-notes {
+  display: grid;
+  gap: 12px;
+  margin-top: 28px;
+  color: var(--text-3);
+  font-size: var(--t-14);
+  line-height: 1.6;
+}
+.st-notes a {
+  color: var(--text-2);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+@media (max-width: 640px) {
+  .st-card {
+    padding: 20px;
+  }
+}

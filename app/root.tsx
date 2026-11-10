@@ -9,7 +9,7 @@ import { useCommandMenuShortcut } from "@agent-native/toolkit/app/shared";
 import { CommandMenu } from "@agent-native/toolkit/app/shared";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTheme } from "next-themes";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   Links,
   Meta,
@@ -21,8 +21,11 @@ import {
 } from "react-router";
 import type { LinksFunction } from "react-router";
 
+import { AgentInspector } from "@/components/layout/AgentInspector";
 import { Layout as AppLayout } from "@/components/layout/Layout";
 import { AppToolkitProvider } from "@/components/ui/toolkit-provider";
+import { isPublicPage } from "@/lib/public-pages";
+import { useMe } from "@/lib/use-me";
 import { useNavigationState } from "@/hooks/use-navigation-state";
 import { APP_TITLE } from "@/lib/app-config";
 import {
@@ -60,7 +63,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta charSet="utf-8" />
         <meta
           name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, interactive-widget=resizes-content"
+          content="width=device-width, initial-scale=1, interactive-widget=resizes-content"
         />
         <script
           suppressHydrationWarning
@@ -116,12 +119,22 @@ function ThemeToggleItem() {
   );
 }
 
+const OPERATOR_PATHS = ["/settings", "/database", "/observability", "/extensions", "/team", "/agent", "/chat"];
+
 function AppContent() {
   const [cmdkOpen, setCmdkOpen] = useState(false);
   const navigate = useNavigate();
   const t = useT();
   const location = useLocation();
   const isChatThread = threadIdFromPath(location.pathname) !== null;
+  const me = useMe().data;
+  const isAdmin = Boolean(me?.signedIn && me.admin);
+  // Builder screens are for the people who run Iff. The server redirects too;
+  // this covers in-app navigation that never reaches the server.
+  useEffect(() => {
+    if (me?.signedIn && !me.admin && OPERATOR_PATHS.some((p) => location.pathname === p || location.pathname.startsWith(`${p}/`)))
+      navigate("/home", { replace: true });
+  }, [me, location.pathname, navigate]);
   useCommandMenuShortcut(useCallback(() => setCmdkOpen(true), []));
   return (
     <>
@@ -145,11 +158,12 @@ function AppContent() {
               {t("navigation.home")}
             </CommandMenu.Item>
           ) : null}
-          {!isChatPathname(location.pathname) ? (
+          {isAdmin && !isChatPathname(location.pathname) ? (
             <CommandMenu.Item onSelect={() => navigate(NEW_CHAT_PATH)}>
               {t("navigation.chat")}
             </CommandMenu.Item>
           ) : null}
+          {isAdmin && (
           <CommandMenu.Item
             onSelect={() => navigate("/settings/agent")}
             keywords={[
@@ -163,14 +177,30 @@ function AppContent() {
           >
             {t("settings.openAgentSettings")}
           </CommandMenu.Item>
+          )}
         </CommandMenu.Group>
         <CommandMenu.Group heading={t("root.commandAppearance")}>
           <ThemeToggleItem />
         </CommandMenu.Group>
       </CommandMenu>
-      <AppLayout>
+      {isPublicPage(location.pathname) ? (
         <Outlet />
-      </AppLayout>
+      ) : location.pathname === HOME_PATH ? (
+        <div className="flex h-screen w-full overflow-hidden">
+          <AgentInspector
+            chatHomeHandoffActive={false}
+            chatHomeHandoffPending={false}
+          >
+            <div className="flex-1 min-w-0 overflow-auto">
+              <Outlet />
+            </div>
+          </AgentInspector>
+        </div>
+      ) : (
+        <AppLayout>
+          <Outlet />
+        </AppLayout>
+      )}
     </>
   );
 }
@@ -184,10 +214,11 @@ export default function Root() {
     <AppToolkitProvider>
       <AppProviders
         queryClient={queryClient}
+        isPublicPath={isPublicPage(pathname)}
         skeletonLayout={skeletonLayoutForPath(pathname)}
         i18n={{ catalog: i18nCatalog }}
       >
-        <DbSyncSetup />
+        {isPublicPage(pathname) ? null : <DbSyncSetup />}
         <AppContent />
       </AppProviders>
     </AppToolkitProvider>

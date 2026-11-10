@@ -2,21 +2,13 @@
   "extends": "@agent-native/core/tsconfig.base.json",
   "compilerOptions": {
     "ignoreDeprecations": "6.0",
-    "rootDirs": [
-      ".",
-      "./.react-router/types"
-    ],
+    "rootDirs": [".", "./.react-router/types"],
     "paths": {
-      "*": [
-        "./*"
-      ],
-      "@/*": [
-        "./app/*"
-      ],
-      "@shared/*": [
-        "./shared/*"
-      ]
-    }
+      "*": ["./*"],
+      "@/*": ["./app/*"],
+      "@shared/*": ["./shared/*"]
+    },
+    "lib": ["ES2023", "DOM", "DOM.Iterable"]
   },
   "include": [
     "app/**/*",

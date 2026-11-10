@@ -8,6 +8,8 @@ const agentNativePlugins = agentNative as unknown as (
 ) => any[];
 export default defineConfig({
   optimizeDeps: {
+    holdUntilCrawlEnd: false,
+    include: ["react-is", "style-to-js"],
     entries: [
       "app/entry.client.tsx",
       "app/root.tsx",
@@ -17,9 +19,19 @@ export default defineConfig({
     ],
   },
   plugins: [
+    {
+      name: "iff-native-server-dependencies",
+      enforce: "pre",
+      resolveId(source) {
+        if (this.environment.name === "client") return;
+        // These published packages already contain Node-compatible ESM. Avoid
+        // re-transforming their circular module graphs in Nitro's dev runner.
+        if (/^(react-router|crossws)(\/|$)/.test(source)) {
+          return { id: source, external: true };
+        }
+      },
+    },
     ...reactRouterPlugins(),
-    ...agentNativePlugins({
-      ssrStubs: ["shiki"],
-    }),
+    ...agentNativePlugins({ ssrStubs: ["shiki"] }),
   ],
 });

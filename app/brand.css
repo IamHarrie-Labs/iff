@@ -1,0 +1,54 @@
+/* Iff design tokens. Shared by the landing page and the workspace. */
+@import "@fontsource-variable/geist";
+@import "@fontsource/instrument-serif/400-italic.css";
+
+.iff-brand {
+  /* Colour */
+  --bg: #0b0b0c;
+  --bg-2: #111113;
+  --surface: #f4f2ed;
+  --surface-2: #e9e6df;
+  --line: #222225;
+  --line-2: #d8d4cb;
+  --text: #f4f2ed;
+  --text-2: #8f8f96;
+  --text-3: #5f5f66;
+  --ink: #0b0b0c;
+  --ink-2: #57565c;
+  --signal: #d7f94a;
+  --signal-ink: #33400a;
+  --ok: #8fdc6a;
+
+  /* Type */
+  --sans: "Geist Variable", "Geist", "Helvetica Neue", Arial, sans-serif;
+  --serif: "Instrument Serif", "Times New Roman", serif;
+  --t-12: 12px;
+  --t-14: 14px;
+  --t-16: 16px;
+  --t-20: 20px;
+  --t-28: 28px;
+  --t-44: 44px;
+  --track-tight: -0.035em;
+  --track-display: -0.05em;
+
+  /* Shape and motion */
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-lg: 24px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  font-family: var(--sans);
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+.iff-brand em,
+.iff-brand .serif {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+.iff-brand .num {
+  font-variant-numeric: tabular-nums;
+}
